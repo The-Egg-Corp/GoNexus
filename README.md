@@ -2,12 +2,6 @@
 Unofficial Golang client for [NexusMods](https://www.nexusmods.com).\
 Provides a convenient way to interface with the API to avoid sending HTTP requests manually.
 
-> [!WARNING]
-> A personal API key is required to return any data!\
-> You can get generate one in your [account settings](https://next.nexusmods.com/settings/api-keys). 
->
-> It is recommended to store your key safely using environment variables.
-
 ## Install and Import
 ```console
 go get github.com/the-egg-corp/gonexus
@@ -20,6 +14,12 @@ import (
 ```
 
 ## Setup
+> [!NOTE]
+> A personal API key is required to return any data!\
+> You can get generate one in your [account settings](https://next.nexusmods.com/settings/api-keys). 
+>
+> It is recommended to store your key safely using environment variables.
+
 ```go
 var NexusClient, ClientError = v1.NewNexusClient(os.Getenv("NEXUS_KEY"))
 ```
