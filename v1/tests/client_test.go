@@ -17,6 +17,6 @@ func NewNexusClient() nexus.Client {
 	}
 
 	return nexus.Client{
-		APIKey: os.Getenv("API_KEY"),
+		APIKey: os.Getenv("NEXUS_KEY"),
 	}
 }

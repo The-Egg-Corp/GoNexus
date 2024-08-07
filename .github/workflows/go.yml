@@ -13,6 +13,7 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
+    
     steps:
     - uses: actions/checkout@v4
 
@@ -21,8 +22,12 @@ jobs:
       with:
         go-version: '1.21.1'
 
-    - name: Build
-      run: go build -v ./...
+    - name: Install Deps
+      run: go mod tidy
+
+    - name: Load environment variables from .env
+      run: |
+        echo "API_KEY=${{ secrets.NEXUS_KEY }}" >> .env
 
     - name: Test V1
-      run: go test -v v1/tests/...
+      run: go test -v ./v1/tests/...
