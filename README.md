@@ -8,22 +8,20 @@ Provides a convenient way to interface with the API to avoid sending HTTP reques
 >
 > It is recommended to store your key safely using environment variables.
 
-## Install & Import
+## Install and Import
 ```console
 go get github.com/the-egg-corp/gonexus
 ```
 
 ```go 
 import (
-    nexus "github.com/the-egg-corp/gonexus/v1"
+    "github.com/the-egg-corp/gonexus/v1"
 )
 ```
 
 ## Setup
 ```go
-var NexusClient = nexus.Client{
-    APIKey: os.Getenv("NEXUS_PERSONAL_KEY")
-}
+var NexusClient, ClientError = v1.NewNexusClient(os.Getenv("NEXUS_KEY"))
 ```
 
 ## Usage
