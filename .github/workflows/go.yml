@@ -27,7 +27,7 @@ jobs:
 
     - name: Load environment variables from .env
       run: |
-        echo "API_KEY=${{ secrets.NEXUS_KEY }}" >> .env
+        echo "NEXUS_KEY=${{ secrets.NEXUS_KEY }}" >> .env
 
     - name: Test V1
       run: go test -v ./v1/tests/...
