@@ -6,11 +6,20 @@ import (
 	"github.com/the-egg-corp/gonexus/util"
 )
 
-func TestAllGames(t *testing.T) {
-	games, err := NexusClient.GetGame("lethalcompany")
+func TestGetAllGames(t *testing.T) {
+	games, err := NexusClient.GetAllGames()
 	if err != nil {
-		t.Fatal()
+		t.Fatal("error getting all games\n", err)
 	}
 
 	util.PrettyPrint(games)
+}
+
+func TestGetGame(t *testing.T) {
+	game, err := NexusClient.GetGame("lethalcompany")
+	if err != nil {
+		t.Fatal("error getting game\n", err)
+	}
+
+	util.PrettyPrint(game)
 }

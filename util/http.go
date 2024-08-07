@@ -31,13 +31,12 @@ func get(url string, apiKey string) ([]byte, error) {
 
 func asJSON[T interface{}](res []byte, err error) (T, error) {
 	var data T
-
 	if err != nil {
 		return data, err
 	}
 
-	json.Unmarshal([]byte(res), &data)
-	return data, nil
+	e := json.Unmarshal([]byte(res), &data)
+	return data, e
 }
 
 func JsonGetRequest[T interface{}](endpoint string, apiKey string) (T, error) {

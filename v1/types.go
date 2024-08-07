@@ -20,7 +20,7 @@ type Game struct {
 type GameCategory struct {
 	Name           string `json:"name"`
 	CategoryID     int    `json:"category_id"`
-	ParentCategory bool   `json:"parent_category"`
+	ParentCategory any    `json:"parent_category"` // Can be bool or int. Go pls implement unions :(
 }
 
 type User struct {
