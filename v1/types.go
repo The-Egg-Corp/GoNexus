@@ -22,3 +22,13 @@ type GameCategory struct {
 	CategoryID     int    `json:"category_id"`
 	ParentCategory bool   `json:"parent_category"`
 }
+
+type User struct {
+	UserID      int    `json:"user_id"`
+	Key         string `json:"key"`
+	Name        string `json:"name"`
+	IsPremium   bool   `json:"is_premium"`
+	IsSupporter bool   `json:"is_supporter"`
+	Email       string `json:"email"`
+	ProfileURL  string `json:"profile_url"`
+}

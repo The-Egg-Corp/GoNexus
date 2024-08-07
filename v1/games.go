@@ -6,10 +6,6 @@ import (
 	"github.com/the-egg-corp/gonexus/util"
 )
 
-type Client struct {
-	APIKey string
-}
-
 func (c Client) GetAllGames() ([]Game, error) {
 	return util.JsonGetRequest[[]Game]("v1/games", c.APIKey)
 }
