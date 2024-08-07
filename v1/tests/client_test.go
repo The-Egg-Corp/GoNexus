@@ -3,20 +3,25 @@ package v1
 import (
 	"log"
 	"os"
+	"testing"
 
 	"github.com/joho/godotenv"
-	nexus "github.com/the-egg-corp/gonexus/v1"
+	v1 "github.com/the-egg-corp/gonexus/v1"
 )
 
-var NexusClient = NewNexusClient()
+var NexusClient, InitClientError = NewNexusClient()
 
-func NewNexusClient() nexus.Client {
+func NewNexusClient() (*v1.Client, error) {
 	err := godotenv.Load("../../.env")
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	return nexus.Client{
-		APIKey: os.Getenv("NEXUS_KEY"),
+	return v1.NewNexusClient(os.Getenv("NEXUS_KEY"))
+}
+
+func TestNewNexusClient(t *testing.T) {
+	if NexusClient == nil {
+		t.Fatal(InitClientError)
 	}
 }
