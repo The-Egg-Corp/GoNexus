@@ -1,7 +1,7 @@
 package v1
 
 type Game struct {
-	ID               string         `json:"id"`
+	ID               int            `json:"id"`
 	Name             string         `json:"name"`
 	ForumURL         string         `json:"forum_url"`
 	NexusURL         string         `json:"nexusmods_url"`
