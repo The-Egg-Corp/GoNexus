@@ -2,9 +2,9 @@ package v1
 
 import "errors"
 
-type Client struct {
-	apiKey string
-}
+var apiKey string
+
+type Client struct{}
 
 func NewNexusClient(key string) (*Client, error) {
 	user, err := ValidateUser(key)
@@ -17,7 +17,8 @@ func NewNexusClient(key string) (*Client, error) {
 		return nil, errors.New("invalid api key")
 	}
 
-	return &Client{apiKey: key}, nil
+	apiKey = key
+	return &Client{}, nil
 }
 
 func ValidateKey(key *string) error {

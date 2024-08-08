@@ -1,5 +1,15 @@
 package v1
 
+type User struct {
+	UserID      int    `json:"user_id"`
+	Key         string `json:"key"`
+	Name        string `json:"name"`
+	IsPremium   bool   `json:"is_premium"`
+	IsSupporter bool   `json:"is_supporter"`
+	Email       string `json:"email"`
+	ProfileURL  string `json:"profile_url"`
+}
+
 type Game struct {
 	ID               int            `json:"id"`
 	Name             string         `json:"name"`
@@ -15,7 +25,6 @@ type Game struct {
 	FileEndorsements int            `json:"file_endorsements"`
 	Mods             int            `json:"mods"`
 	Categories       []GameCategory `json:"categories"`
-	apiKey           *string
 }
 
 type GameCategory struct {
@@ -61,16 +70,6 @@ type Mod struct {
 	} `json:"endorsement"`
 }
 
-type User struct {
-	UserID      int    `json:"user_id"`
-	Key         string `json:"key"`
-	Name        string `json:"name"`
-	IsPremium   bool   `json:"is_premium"`
-	IsSupporter bool   `json:"is_supporter"`
-	Email       string `json:"email"`
-	ProfileURL  string `json:"profile_url"`
-}
-
 type Status string
 
 const (
@@ -84,4 +83,9 @@ type Endorsement struct {
 	Date       string  `json:"date"`
 	Version    *string `json:"version"`
 	Status     Status  `json:"status"`
+}
+
+type EndorsementEvent struct {
+	Message string `json:"message"`
+	Status  Status `json:"status"`
 }

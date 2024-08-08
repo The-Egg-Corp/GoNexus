@@ -7,9 +7,9 @@ func ValidateUser(key string) (User, error) {
 }
 
 func (c Client) ValidateUser() (User, error) {
-	return ValidateUser(c.apiKey)
+	return ValidateUser(apiKey)
 }
 
 func (c Client) GetEndorsements() ([]Endorsement, error) {
-	return util.JsonGetRequest[[]Endorsement]("v1/user/endorsements", c.apiKey)
+	return util.JsonGetRequest[[]Endorsement]("v1/user/endorsements", apiKey)
 }

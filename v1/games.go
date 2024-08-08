@@ -8,16 +8,14 @@ import (
 )
 
 func (c Client) GetAllGames() ([]Game, error) {
-	return util.JsonGetRequest[[]Game]("v1/games", c.apiKey)
+	return util.JsonGetRequest[[]Game]("v1/games", apiKey)
 }
 
 func (c Client) GetGame(name string) (Game, error) {
-	game, err := util.JsonGetRequest[Game](fmt.Sprint("v1/games/", name), c.apiKey)
+	game, err := util.JsonGetRequest[Game](fmt.Sprint("v1/games/", name), apiKey)
 	if game.ID == 0 && game.Name == "" {
 		return game, errors.New("no game found with name: " + name)
 	}
-
-	game.apiKey = &c.apiKey
 
 	return game, err
 }
