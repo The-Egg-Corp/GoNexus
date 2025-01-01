@@ -9,7 +9,7 @@ go get github.com/the-egg-corp/gonexus
 
 ```go 
 import (
-    "github.com/the-egg-corp/gonexus/v1"
+    v1 "github.com/the-egg-corp/gonexus/v1"
 )
 ```
 
