@@ -2,14 +2,19 @@ package v1
 
 import "github.com/the-egg-corp/gonexus/util"
 
-func ValidateUser(key string) (User, error) {
-	return util.JsonGetRequest[User]("v1/users/validate", key)
+func ValidateUser(key string) (*User, error) {
+	res, err := util.GetRequest("v1/users/validate", key)
+	if err != nil {
+		return nil, err
+	}
+
+	return util.ParseJsonBody[User](*res)
 }
 
-func (c Client) ValidateUser() (User, error) {
-	return ValidateUser(apiKey)
+func (c Client) ValidateUser() (*User, error) {
+	return ValidateUser(c.apiKey)
 }
 
-func (c Client) GetEndorsements() ([]Endorsement, error) {
-	return util.JsonGetRequest[[]Endorsement]("v1/user/endorsements", apiKey)
+func (c Client) GetEndorsements() (*[]Endorsement, error) {
+	return jsonGetRequest[[]Endorsement]("v1/user/endorsements", c)
 }

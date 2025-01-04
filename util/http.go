@@ -2,29 +2,28 @@ package util
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"time"
 
 	"github.com/go-resty/resty/v2"
 )
 
-const REQ_TIMEOUT = 15 * time.Second
-const DOMAIN = "https://api.nexusmods.com/"
-
-var client = resty.NewWithClient(&http.Client{Timeout: REQ_TIMEOUT})
-
 type ReqMethod string
 
 const (
-	Post ReqMethod = "POST"
-	Get  ReqMethod = "GET"
+	POST ReqMethod = "POST"
+	GET  ReqMethod = "GET"
 )
 
-func fetch(url string, method ReqMethod, apiKey string) ([]byte, error) {
-	req := client.R().SetHeader("apiKey", apiKey)
+const DOMAIN = "https://api.nexusmods.com/"
+const REQ_TIMEOUT = 15 * time.Second
 
-	var res *resty.Response
-	var err error
+var client = resty.NewWithClient(&http.Client{Timeout: REQ_TIMEOUT})
+
+func fetchWithKey(url string, method ReqMethod, apiKey string) (res *resty.Response, err error) {
+	req := client.R()
+	req.SetHeader("apiKey", apiKey)
 
 	if method == "POST" {
 		res, err = req.Post(url)
@@ -36,23 +35,37 @@ func fetch(url string, method ReqMethod, apiKey string) ([]byte, error) {
 		return nil, err
 	}
 
-	return res.Body(), nil
+	return res, nil
 }
 
-func asJSON[T interface{}](res []byte, err error) (T, error) {
-	var data T
-	if err != nil {
-		return data, err
+func ParseJsonBody[T interface{}](res resty.Response) (result *T, err error) {
+	body := res.Body()
+	if len(body) < 1 {
+		return nil, fmt.Errorf("\nno body in response:\n\n%v", res)
 	}
 
-	e := json.Unmarshal([]byte(res), &data)
-	return data, e
+	err = json.Unmarshal([]byte(body), &result)
+	if err != nil {
+		return nil, fmt.Errorf("\nerror unmarshalling json:\n\n%v", err)
+	}
+
+	return result, err
 }
 
-func JsonGetRequest[T interface{}](endpoint string, apiKey string) (T, error) {
-	return asJSON[T](fetch(DOMAIN+endpoint, Get, apiKey))
+func GetRequest(endpoint string, apiKey string) (*resty.Response, error) {
+	res, err := fetchWithKey(DOMAIN+endpoint, GET, apiKey)
+	if err != nil {
+		return nil, err
+	}
+
+	return res, nil
 }
 
-func JsonPostRequest[T interface{}](endpoint string, apiKey string) (T, error) {
-	return asJSON[T](fetch(DOMAIN+endpoint, Post, apiKey))
+func PostRequest(endpoint string, apiKey string) (*resty.Response, error) {
+	res, err := fetchWithKey(DOMAIN+endpoint, POST, apiKey)
+	if err != nil {
+		return nil, err
+	}
+
+	return res, nil
 }

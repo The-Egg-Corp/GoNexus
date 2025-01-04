@@ -1,30 +1,56 @@
 package v1
 
-import "errors"
+import (
+	"errors"
 
-var apiKey string
+	"github.com/the-egg-corp/gonexus/util"
+)
 
-type Client struct{}
+type Client struct {
+	apiKey string
+}
 
 func NewNexusClient(key string) (*Client, error) {
-	user, err := ValidateUser(key)
+	if key == "" {
+		return nil, errors.New("error creating client: cannot use empty string as api key")
+	}
 
+	user, err := ValidateUser(key)
 	if err != nil {
 		return nil, err
 	}
 
 	if user.Name == "" {
-		return nil, errors.New("invalid api key")
+		return nil, errors.New("error creating client: invalid api key provided")
 	}
 
-	apiKey = key
-	return &Client{}, nil
+	return &Client{apiKey: key}, nil
 }
 
-func ValidateKey(key *string) error {
-	if key == nil {
-		return errors.New("couldn't send request. no api key provided")
+func jsonGetRequest[T interface{}](endpoint string, client Client) (*T, error) {
+	res, err := util.GetRequest(endpoint, client.apiKey)
+	if err != nil {
+		return nil, err
 	}
 
-	return nil
+	return util.ParseJsonBody[T](*res)
 }
+
+func jsonPostRequest[T interface{}](endpoint string, client Client) (*T, error) {
+	res, err := util.PostRequest(endpoint, client.apiKey)
+	if err != nil {
+		return nil, err
+	}
+
+	return util.ParseJsonBody[T](*res)
+}
+
+// func ValidateKey(key *string) error {
+// 	if key == nil {
+// 		return errors.New("could not validate nil key. ensure one was specified")
+// 	}
+
+// 	//
+
+// 	return nil
+// }
