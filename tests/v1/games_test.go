@@ -7,7 +7,7 @@ import (
 )
 
 func TestGetAllGames(t *testing.T) {
-	games, err := NexusClient.GetAllGames()
+	games, err := GameService.GetAllGames()
 	if err != nil {
 		t.Fatal("error getting all games\n", err)
 	}
@@ -16,7 +16,7 @@ func TestGetAllGames(t *testing.T) {
 }
 
 func TestGetGame(t *testing.T) {
-	game, err := NexusClient.GetGame("lethalcompany")
+	game, err := GameService.GetGame("lethalcompany")
 	if err != nil {
 		t.Fatal("error getting game\n", err)
 	}

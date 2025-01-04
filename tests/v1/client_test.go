@@ -10,6 +10,7 @@ import (
 )
 
 var NexusClient, InitClientError = NewNexusClient()
+var GameService = v1.NewGameService(NexusClient)
 
 func NewNexusClient() (*v1.Client, error) {
 	err := godotenv.Load("../../.env")

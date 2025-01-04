@@ -4,12 +4,21 @@ import (
 	"errors"
 )
 
-func (c Client) GetAllGames() (*[]Game, error) {
-	return jsonGetRequest[[]Game]("v1/games", c)
+type GameService struct {
+	client *Client
 }
 
-func (c Client) GetGame(name string) (*Game, error) {
-	game, err := jsonGetRequest[Game]("v1/games/"+name, c)
+// NewGameService initializes a new GameService.
+func NewGameService(client *Client) *GameService {
+	return &GameService{client: client}
+}
+
+func (gs *GameService) GetAllGames() (*[]Game, error) {
+	return jsonGetRequest[[]Game]("v1/games", *gs.client)
+}
+
+func (gs *GameService) GetGame(name string) (*Game, error) {
+	game, err := jsonGetRequest[Game]("v1/games/"+name, *gs.client)
 	if err != nil {
 		return nil, err
 	}
