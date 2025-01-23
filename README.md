@@ -2,6 +2,10 @@
 Unofficial Golang client for [NexusMods](https://www.nexusmods.com).\
 Provides a convenient way to interface with the API to avoid sending HTTP requests manually.
 
+> [!WARNING]
+> This project is very much a **WIP** currently and it is highly likely there will be bugs/missing features.\
+> It is not advised to use this in production until there is a stable release (1.0.0).
+
 ## Install and Import
 ```console
 go get github.com/the-egg-corp/gonexus
@@ -25,7 +29,7 @@ var NexusClient, ClientError = v1.NewNexusClient(os.Getenv("NEXUS_KEY"))
 ```
 
 ## Usage
-Until there is proper documentation, you can look at the [tests](./v1/tests/) for some usage examples.
+Until there is proper documentation, you can look at the [tests](./tests/) for some usage examples.
 
 ## Contact
 Feel free to join my [discord](https://discord.gg/BwfzZpytjf) for support or suggestions.
