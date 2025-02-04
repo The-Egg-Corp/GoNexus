@@ -8,10 +8,11 @@ import (
 
 type Client struct {
 	apiKey string
+	valid  bool
 }
 
 func NewNexusClient(key string) (*Client, error) {
-	user, err := ValidateUser(key)
+	user, err := SendValidateUserRequest(key)
 	if err != nil {
 		return nil, err
 	}
@@ -20,7 +21,7 @@ func NewNexusClient(key string) (*Client, error) {
 		return nil, errors.New("error creating client: invalid api key provided")
 	}
 
-	return &Client{apiKey: key}, nil
+	return &Client{apiKey: key, valid: true}, nil
 }
 
 func jsonGetRequest[T interface{}](endpoint string, client Client) (*T, error) {

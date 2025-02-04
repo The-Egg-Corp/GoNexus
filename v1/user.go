@@ -6,12 +6,25 @@ import (
 	"github.com/the-egg-corp/gonexus/util"
 )
 
-func ValidateUser(key string) (*User, error) {
+const VALIDATE_USER_ENDPOINT = "v1/users/validate"
+
+type User struct {
+	UserID      int    `json:"user_id"`
+	Key         string `json:"key"`
+	Name        string `json:"name"`
+	IsPremium   bool   `json:"is_premium"`
+	IsSupporter bool   `json:"is_supporter"`
+	Email       string `json:"email"`
+	ProfileURL  string `json:"profile_url"`
+}
+
+// Sends a request to [VALIDATE_USER_ENDPOINT] to check the validity of the given key.
+func SendValidateUserRequest(key string) (*User, error) {
 	if key == "" {
 		return nil, errors.New("error validating user: specified key is empty")
 	}
 
-	res, err := util.GetRequest("v1/users/validate", key)
+	res, err := util.GetRequest(VALIDATE_USER_ENDPOINT, key)
 	if err != nil {
 		return nil, err
 	}
@@ -19,10 +32,12 @@ func ValidateUser(key string) (*User, error) {
 	return util.ParseJsonBody[User](*res)
 }
 
+// Checks whether the api key of this client is valid.
 func (c Client) ValidateUser() (*User, error) {
-	return ValidateUser(c.apiKey)
+	return SendValidateUserRequest(c.apiKey)
 }
 
+// Get endorsements for a user.
 func (c Client) GetEndorsements() (*[]Endorsement, error) {
 	return jsonGetRequest[[]Endorsement]("v1/user/endorsements", c)
 }
