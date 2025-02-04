@@ -11,10 +11,6 @@ type Client struct {
 }
 
 func NewNexusClient(key string) (*Client, error) {
-	if key == "" {
-		return nil, errors.New("error creating client: cannot use empty string as api key")
-	}
-
 	user, err := ValidateUser(key)
 	if err != nil {
 		return nil, err

@@ -1,8 +1,16 @@
 package v1
 
-import "github.com/the-egg-corp/gonexus/util"
+import (
+	"errors"
+
+	"github.com/the-egg-corp/gonexus/util"
+)
 
 func ValidateUser(key string) (*User, error) {
+	if key == "" {
+		return nil, errors.New("error validating user: specified key is empty")
+	}
+
 	res, err := util.GetRequest("v1/users/validate", key)
 	if err != nil {
 		return nil, err
