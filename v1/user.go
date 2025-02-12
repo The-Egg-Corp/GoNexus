@@ -19,6 +19,8 @@ type User struct {
 }
 
 // Sends a request to [VALIDATE_USER_ENDPOINT] to check the validity of the given key.
+//
+// This request does not count towards hourly rate limits.
 func SendValidateUserRequest(key string) (*User, error) {
 	if key == "" {
 		return nil, errors.New("error validating user: specified key is empty")
@@ -39,5 +41,5 @@ func (c Client) ValidateUser() (*User, error) {
 
 // Get endorsements for a user.
 func (c Client) GetEndorsements() (*[]Endorsement, error) {
-	return jsonGetRequest[[]Endorsement]("v1/user/endorsements", c)
+	return jsonGetRequest[[]Endorsement]("v1/user/endorsements", &c)
 }

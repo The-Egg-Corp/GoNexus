@@ -16,7 +16,7 @@ const (
 	GET  ReqMethod = "GET"
 )
 
-const DOMAIN = "https://api.nexusmods.com/"
+const API_BASE_URL = "https://api.nexusmods.com/"
 const REQ_TIMEOUT = 15 * time.Second
 
 var client = resty.NewWithClient(&http.Client{Timeout: REQ_TIMEOUT})
@@ -53,7 +53,7 @@ func ParseJsonBody[T interface{}](res resty.Response) (result *T, err error) {
 }
 
 func GetRequest(endpoint string, apiKey string) (*resty.Response, error) {
-	res, err := fetchWithKey(DOMAIN+endpoint, GET, apiKey)
+	res, err := fetchWithKey(API_BASE_URL+endpoint, GET, apiKey)
 	if err != nil {
 		return nil, err
 	}
@@ -62,7 +62,7 @@ func GetRequest(endpoint string, apiKey string) (*resty.Response, error) {
 }
 
 func PostRequest(endpoint string, apiKey string) (*resty.Response, error) {
-	res, err := fetchWithKey(DOMAIN+endpoint, POST, apiKey)
+	res, err := fetchWithKey(API_BASE_URL+endpoint, POST, apiKey)
 	if err != nil {
 		return nil, err
 	}

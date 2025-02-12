@@ -1,5 +1,20 @@
 package v1
 
+type ModUpdatePeriod string
+
+const (
+	MOD_UPDATE_PERIOD_ONE_DAY   ModUpdatePeriod = "1d"
+	MOD_UPDATE_PERIOD_ONE_WEEK  ModUpdatePeriod = "1w"
+	MOD_UPDATE_PERIOD_ONE_MONTH ModUpdatePeriod = "1m"
+)
+
+type ModUpdateInfo struct {
+	ModId uint32 `json:"mod_id"`
+	// TODO: These could possibly be uint.
+	LatestFileUpdate  int32 `json:"latest_file_update"`
+	LatestModActivity int32
+}
+
 type Mod struct {
 	Name                    string `json:"name"`
 	Summary                 string `json:"summary"`
@@ -37,7 +52,7 @@ type Mod struct {
 	} `json:"endorsement"`
 }
 
-// Alias for github.com/the-egg-corp/gonexus/v1/#Mod.ContainsAdultContent.
+// Alias for [Mod.ContainsAdultContent].
 func (mod Mod) IsNSFW() bool {
 	return mod.ContainsAdultContent
 }

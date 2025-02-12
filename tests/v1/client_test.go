@@ -1,8 +1,8 @@
 package v1
 
 import (
+	"fmt"
 	"log"
-	"os"
 	"testing"
 
 	"github.com/joho/godotenv"
@@ -10,19 +10,28 @@ import (
 )
 
 var NexusClient, InitClientError = NewNexusClient()
-var GameService = v1.NewGameService(NexusClient)
 
 func NewNexusClient() (*v1.Client, error) {
-	err := godotenv.Load("../../.env")
+	vars, err := godotenv.Read("../../.env")
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("\nFailed to load required environment variables.\n%s", err)
 	}
 
-	return v1.NewNexusClient(os.Getenv("NEXUS_KEY"))
+	key, found := vars["NEXUS_KEY"]
+	if !found {
+		log.Fatalf("\nCould not find required environment variable: NEXUS_KEY\n%s", err)
+	}
+
+	return v1.NewNexusClient(key)
 }
 
 func TestNewNexusClient(t *testing.T) {
 	if NexusClient == nil {
-		t.Fatal(InitClientError)
+		if InitClientError != nil {
+			t.Fatal(fmt.Errorf("\nFailed to initialize the client.\n%s", InitClientError))
+			return
+		}
+
+		t.Fatal(fmt.Errorf("\nFailed to initialize the client but no error was provided."))
 	}
 }

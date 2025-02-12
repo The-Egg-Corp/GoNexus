@@ -8,17 +8,16 @@ type GameService struct {
 	client *Client
 }
 
-// NewGameService initializes a new GameService.
 func NewGameService(client *Client) *GameService {
 	return &GameService{client: client}
 }
 
 func (gs *GameService) GetAllGames() (*[]Game, error) {
-	return jsonGetRequest[[]Game]("v1/games", *gs.client)
+	return jsonGetRequest[[]Game]("v1/games", gs.client)
 }
 
 func (gs *GameService) GetGame(name string) (*Game, error) {
-	game, err := jsonGetRequest[Game]("v1/games/"+name, *gs.client)
+	game, err := jsonGetRequest[Game]("v1/games/"+name, gs.client)
 	if err != nil {
 		return nil, err
 	}

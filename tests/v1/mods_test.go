@@ -2,13 +2,23 @@ package v1
 
 import (
 	"testing"
+
+	"github.com/the-egg-corp/gonexus/util"
+	v1 "github.com/the-egg-corp/gonexus/v1"
 )
 
-func TestGetGameMod(t *testing.T) {
-	// game, err := GameService.GetGame("lethalcompany")
-	// if err != nil {
-	// 	t.Fatal("error getting game\n", err)
-	// }
+var ModService = v1.NewModService(NexusClient)
 
-	// util.PrettyPrint(game.GetMod())
+func TestGetGameMod(t *testing.T) {
+	game, err := GameService.GetGame("HogwartsLegacy")
+	if err != nil {
+		t.Fatal("error getting game\n", err)
+	}
+
+	mod, err := ModService.GetModByID(1863, *game)
+	if err != nil {
+		t.Fatal("error getting mod\n", err)
+	}
+
+	util.PrettyPrint(mod)
 }

@@ -4,7 +4,10 @@ import (
 	"testing"
 
 	"github.com/the-egg-corp/gonexus/util"
+	v1 "github.com/the-egg-corp/gonexus/v1"
 )
+
+var GameService = v1.NewGameService(NexusClient)
 
 func TestGetAllGames(t *testing.T) {
 	games, err := GameService.GetAllGames()

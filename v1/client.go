@@ -1,7 +1,7 @@
 package v1
 
 import (
-	"errors"
+	"fmt"
 
 	"github.com/the-egg-corp/gonexus/util"
 )
@@ -10,20 +10,28 @@ type Client struct {
 	apiKey string
 }
 
+// NexusMods API Permalink:
+// https://app.swaggerhub.com/apis-docs/NexusMods/nexus-mods_public_api_params_in_form_data/1.0
+
 func NewNexusClient(key string) (*Client, error) {
 	user, err := SendValidateUserRequest(key)
 	if err != nil {
 		return nil, err
 	}
 
-	if user.Name == "" {
-		return nil, errors.New("error creating client: invalid api key provided")
+	// Couldn't get a user back from the API given the provided key.
+	if user == nil || user.Name == "" {
+		return nil, fmt.Errorf("error creating client: invalid api key provided")
 	}
 
 	return &Client{apiKey: key}, nil
 }
 
-func jsonGetRequest[T interface{}](endpoint string, client Client) (*T, error) {
+func jsonGetRequest[T interface{}](endpoint string, client *Client) (*T, error) {
+	if client == nil {
+		return nil, fmt.Errorf("error sending GET request to %s. initialized client is nil", endpoint)
+	}
+
 	res, err := util.GetRequest(endpoint, client.apiKey)
 	if err != nil {
 		return nil, err
@@ -32,7 +40,11 @@ func jsonGetRequest[T interface{}](endpoint string, client Client) (*T, error) {
 	return util.ParseJsonBody[T](*res)
 }
 
-func jsonPostRequest[T interface{}](endpoint string, client Client) (*T, error) {
+func jsonPostRequest[T interface{}](endpoint string, client *Client) (*T, error) {
+	if client == nil {
+		return nil, fmt.Errorf("error sending POST request to %s. initialized client is nil", endpoint)
+	}
+
 	res, err := util.PostRequest(endpoint, client.apiKey)
 	if err != nil {
 		return nil, err
@@ -40,13 +52,3 @@ func jsonPostRequest[T interface{}](endpoint string, client Client) (*T, error) 
 
 	return util.ParseJsonBody[T](*res)
 }
-
-// func ValidateKey(key *string) error {
-// 	if key == nil {
-// 		return errors.New("could not validate nil key. ensure one was specified")
-// 	}
-
-// 	//
-
-// 	return nil
-// }
