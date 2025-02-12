@@ -12,19 +12,20 @@ func NewModService(client *Client) *ModService {
 	return &ModService{client: client}
 }
 
-// TODO: Implement a way to detect 404/not found to return nil (with error) instead of an empty struct.
+// ------------------------------------------------------------------------------------------------------------
+// TODO: Make these more versatile by accepting game name and mod id directly instead of structs?
+
 func (ms *ModService) GetModByID(id uint32, game Game) (*Mod, error) {
 	endpoint := fmt.Sprintf("v1/games/%s/mods/%v", game.DomainName, id)
+
+	// TODO: Implement a way to detect 404/not found to return nil (with error) instead of an empty struct.
 	return jsonGetRequest[Mod](endpoint, ms.client)
 }
 
-// func getGameEndpoint(game Game) string {
-// 	return "v1/games/" + game.DomainName
-// }
-
-// func getModsEndpoint(game Game, mod Mod) string {
-// 	return "v1/games/" + game.DomainName + "/mods/" + string(mod.ModID)
-// }
+func (ms *ModService) GetModChangelogs(game Game, mod Mod) (*Mod, error) {
+	endpoint := fmt.Sprintf("v1/games/%s/mods/%v/changelogs", game.DomainName, mod.ModID)
+	return jsonGetRequest[Mod](endpoint, ms.client)
+}
 
 // Retrieves 10 trending mods for the given game.
 func (ms *ModService) Trending(game Game) (*[]Mod, error) {
@@ -61,3 +62,5 @@ func (ms *ModService) AbstainEndorsement(game Game, mod Mod) (*EndorsementEvent,
 	endpoint := fmt.Sprintf("v1/games/%s/mods/%d/abstain", game.DomainName, mod.ModID)
 	return jsonPostRequest[EndorsementEvent](endpoint, ms.client)
 }
+
+// ------------------------------------------------------------------------------------------------------------
