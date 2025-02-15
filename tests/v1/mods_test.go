@@ -15,7 +15,7 @@ func TestGetGameMod(t *testing.T) {
 		t.Fatal("error getting game\n", err)
 	}
 
-	mod, err := ModService.GetModByID(1863, *game)
+	mod, err := ModService.GetModByID(*game, 1863)
 	if err != nil {
 		t.Fatal("error getting mod\n", err)
 	}
