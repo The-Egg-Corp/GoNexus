@@ -8,6 +8,7 @@ type GameService struct {
 	client *Client
 }
 
+// Initializes a new [GameService] that is reponsible for handling game-related requests like getting all games or a specific game.
 func NewGameService(client *Client) *GameService {
 	return &GameService{client: client}
 }

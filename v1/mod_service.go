@@ -6,7 +6,8 @@ type ModService struct {
 	client *Client
 }
 
-// Initializes a new GameService, reponsible for handling mod-related requests.
+// Initializes a new [ModService] that is reponsible for handling mod-related requests like
+// endorsing or abstaining, getting changelogs, getting files for specific mods etc.
 func NewModService(client *Client) *ModService {
 	// TODO: Maybe accept game here instead of in each method? Assess if the coupling would be justified.
 	return &ModService{client: client}
