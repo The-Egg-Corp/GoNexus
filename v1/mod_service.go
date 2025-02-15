@@ -15,7 +15,7 @@ func NewModService(client *Client) *ModService {
 // ------------------------------------------------------------------------------------------------------------
 // TODO: Make these more versatile by accepting game name and mod id directly instead of structs?
 
-func (ms *ModService) GetModByID(id uint32, game Game) (*Mod, error) {
+func (ms *ModService) GetModByID(game Game, id uint32) (*Mod, error) {
 	endpoint := fmt.Sprintf("v1/games/%s/mods/%v", game.DomainName, id)
 
 	// TODO: Implement a way to detect 404/not found to return nil (with error) instead of an empty struct.
@@ -61,6 +61,16 @@ func (ms *ModService) EndorseMod(game Game, mod Mod) (*EndorsementEvent, error) 
 func (ms *ModService) AbstainEndorsement(game Game, mod Mod) (*EndorsementEvent, error) {
 	endpoint := fmt.Sprintf("v1/games/%s/mods/%d/abstain", game.DomainName, mod.ModID)
 	return jsonPostRequest[EndorsementEvent](endpoint, ms.client)
+}
+
+func (ms *ModService) GetModFiles(game Game, mod Mod) (*ModFilesResponse, error) {
+	endpoint := fmt.Sprintf("v1/games/%s/mods/%d/files", game.DomainName, mod.ModID)
+	return jsonPostRequest[ModFilesResponse](endpoint, ms.client)
+}
+
+func (ms *ModService) GetModFileByID(game Game, mod Mod, fileId uint16) (*ModFile, error) {
+	endpoint := fmt.Sprintf("v1/games/%s/mods/%d/files/%d", game.DomainName, mod.ModID, fileId)
+	return jsonPostRequest[ModFile](endpoint, ms.client)
 }
 
 // ------------------------------------------------------------------------------------------------------------
