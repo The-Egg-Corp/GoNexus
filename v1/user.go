@@ -39,7 +39,12 @@ func (c Client) ValidateUser() (*User, error) {
 	return SendValidateUserRequest(c.apiKey)
 }
 
-// Get endorsements for a user.
+// Retrieves endorsements for current user (this client).
 func (c Client) GetEndorsements() (*[]Endorsement, error) {
 	return jsonGetRequest[[]Endorsement]("v1/user/endorsements", &c)
+}
+
+// Fetches all mods being tracked by the current user.
+func (c Client) GetTrackedMods() (*[]Mod, error) {
+	return jsonGetRequest[[]Mod]("v1/user/tracked_mods", &c)
 }
