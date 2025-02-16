@@ -8,6 +8,6 @@ type ColourScheme struct {
 	DarkerColour    string `json:"darker_colour"`
 }
 
-func (c Client) GetAllColourSchemes() (*[]ColourScheme, error) {
-	return jsonPostRequest[[]ColourScheme]("v1/colourschemes", &c)
+func (c Client) GetColourSchemes() (*[]ColourScheme, error) {
+	return jsonGetRequest[[]ColourScheme]("v1/colourschemes", &c)
 }
