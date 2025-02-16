@@ -3,26 +3,35 @@ package v1
 import (
 	"testing"
 
-	"github.com/the-egg-corp/gonexus/util"
 	v1 "github.com/the-egg-corp/gonexus/v1"
 )
+
+const testGame = "lethalcompany"
 
 var GameService = v1.NewGameService(NexusClient)
 
 func TestGetAllGames(t *testing.T) {
 	games, err := GameService.GetAllGames()
 	if err != nil {
-		t.Fatal("error getting all games\n", err)
+		t.Fatal("failed to get all games\n", err)
 	}
 
-	util.PrettyPrint(games)
+	if games == nil {
+		t.Fatalf("failed to get game: %s. response was nil but no error was provided", testGame)
+	}
+
+	//util.PrettyPrint(games)
 }
 
 func TestGetGame(t *testing.T) {
-	game, err := GameService.GetGame("lethalcompany")
+	game, err := GameService.GetGame(testGame)
 	if err != nil {
-		t.Fatal("error getting game\n", err)
+		t.Fatalf("failed to get game: %s\n%v", testGame, err)
 	}
 
-	util.PrettyPrint(game)
+	if game == nil {
+		t.Fatalf("failed to get game: %s. response was nil but no error was provided", testGame)
+	}
+
+	//util.PrettyPrint(game)
 }

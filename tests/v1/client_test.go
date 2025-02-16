@@ -1,13 +1,14 @@
 package v1
 
 import (
-	"fmt"
 	"log"
 	"testing"
 
 	"github.com/joho/godotenv"
 	v1 "github.com/the-egg-corp/gonexus/v1"
 )
+
+// go test -timeout 30s github.com/the-egg-corp/gonexus/tests/v1 -v
 
 var NexusClient, InitClientError = NewNexusClient()
 
@@ -28,10 +29,10 @@ func NewNexusClient() (*v1.Client, error) {
 func TestNewNexusClient(t *testing.T) {
 	if NexusClient == nil {
 		if InitClientError != nil {
-			t.Fatal(fmt.Errorf("\nFailed to initialize the client.\n%s", InitClientError))
+			t.Fatalf("\nFailed to initialize the client.\n%s", InitClientError)
 			return
 		}
 
-		t.Fatal(fmt.Errorf("\nFailed to initialize the client but no error was provided."))
+		t.Fatal("\nFailed to initialize the client but no error was provided.")
 	}
 }

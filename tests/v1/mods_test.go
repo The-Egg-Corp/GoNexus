@@ -6,11 +6,11 @@ import (
 	v1 "github.com/the-egg-corp/gonexus/v1"
 )
 
-var ModService = v1.NewModService(NexusClient)
-
 const testModGame = "HogwartsLegacy"
 const testModId = 464
 const testModFileId = 1444
+
+var ModService = v1.NewModService(NexusClient)
 
 func TestGetModByID(t *testing.T) {
 	mod, err := ModService.GetModByID(testModGame, testModId)
