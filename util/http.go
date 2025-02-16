@@ -38,6 +38,8 @@ func fetchWithKey(url string, method ReqMethod, apiKey string) (res *resty.Respo
 	return res, nil
 }
 
+// After completing an HTTP request, this function attempts to unmarshal the body (assumed to be JSON) of the response into the given interface.
+// In the case that the body is empty or there was an error unmarshalling, the result will be nil with the original error provided.
 func ParseJsonBody[T interface{}](res resty.Response) (result *T, err error) {
 	body := res.Body()
 	if len(body) < 1 {

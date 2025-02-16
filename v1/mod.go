@@ -15,6 +15,19 @@ type ModUpdateInfo struct {
 	LatestModActivity int32 `json:"latest_mod_activity"`
 }
 
+// The response from the changelogs endpoint for a mod. For example:
+//
+//	{
+//		"1.0": [
+//			"The original version."
+//		],
+//		"1.1": [
+//			"- Optimized x thing for better performance.",
+//			"- Fixed issue where y thing would cause z thing to happen."
+//		]
+//	}
+type ModChangelogsResponse map[string][]string
+
 type ModFilesResponse struct {
 	Files       []ModFile `json:"files"`
 	FileUpdates []any     `json:"file_updates"` // TODO: Figure out exactly what this does/returns.
