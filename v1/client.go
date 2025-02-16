@@ -37,10 +37,6 @@ func jsonGetRequest[T interface{}](endpoint string, client *Client) (*T, error) 
 		return nil, err
 	}
 
-	if res.StatusCode() == 404 {
-		return nil, fmt.Errorf("error during GET request to: %s. resource not found (404)", endpoint)
-	}
-
 	return util.ParseJsonBody[T](*res)
 }
 
@@ -52,10 +48,6 @@ func jsonPostRequest[T interface{}](endpoint string, client *Client) (*T, error)
 	res, err := util.PostRequest(endpoint, client.apiKey)
 	if err != nil {
 		return nil, err
-	}
-
-	if res.StatusCode() == 404 {
-		return nil, fmt.Errorf("error during POST request to: %s. resource not found (404)", endpoint)
 	}
 
 	return util.ParseJsonBody[T](*res)

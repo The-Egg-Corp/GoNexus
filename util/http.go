@@ -60,6 +60,10 @@ func GetRequest(endpoint string, apiKey string) (*resty.Response, error) {
 		return nil, err
 	}
 
+	if res.StatusCode() == 404 {
+		return nil, fmt.Errorf("error during GET request to: %s. resource not found (404)", API_BASE_URL+endpoint)
+	}
+
 	return res, nil
 }
 
@@ -67,6 +71,10 @@ func PostRequest(endpoint string, apiKey string) (*resty.Response, error) {
 	res, err := fetchWithKey(API_BASE_URL+endpoint, POST, apiKey)
 	if err != nil {
 		return nil, err
+	}
+
+	if res.StatusCode() == 404 {
+		return nil, fmt.Errorf("error during POST request to: %s. resource not found (404)", API_BASE_URL+endpoint)
 	}
 
 	return res, nil
