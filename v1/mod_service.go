@@ -23,6 +23,16 @@ func (ms *ModService) GetModChangelogs(gameName string, modId uint32) (*ModChang
 	return jsonGetRequest[ModChangelogsResponse](endpoint, ms.client)
 }
 
+func (ms *ModService) GetModFiles(gameName string, modId uint32) (*ModFilesResponse, error) {
+	endpoint := fmt.Sprintf("v1/games/%s/mods/%d/files", gameName, modId)
+	return jsonGetRequest[ModFilesResponse](endpoint, ms.client)
+}
+
+func (ms *ModService) GetModFileByID(gameName string, modId uint32, fileId uint32) (*ModFile, error) {
+	endpoint := fmt.Sprintf("v1/games/%s/mods/%d/files/%d", gameName, modId, fileId)
+	return jsonGetRequest[ModFile](endpoint, ms.client)
+}
+
 // Retrieves 10 trending mods for the given game.
 func (ms *ModService) Trending(gameName string) (*[]Mod, error) {
 	endpoint := fmt.Sprintf("v1/games/%s/trending", gameName)
@@ -57,14 +67,4 @@ func (ms *ModService) EndorseMod(gameName string, modId uint32) (*EndorsementEve
 func (ms *ModService) AbstainEndorsement(gameName string, modId uint32) (*EndorsementEvent, error) {
 	endpoint := fmt.Sprintf("v1/games/%s/mods/%d/abstain", gameName, modId)
 	return jsonPostRequest[EndorsementEvent](endpoint, ms.client)
-}
-
-func (ms *ModService) GetModFiles(gameName string, modId uint32) (*ModFilesResponse, error) {
-	endpoint := fmt.Sprintf("v1/games/%s/mods/%d/files", gameName, modId)
-	return jsonPostRequest[ModFilesResponse](endpoint, ms.client)
-}
-
-func (ms *ModService) GetModFileByID(gameName string, modId uint32, fileId uint32) (*ModFile, error) {
-	endpoint := fmt.Sprintf("v1/games/%s/mods/%d/files/%d", gameName, modId, fileId)
-	return jsonPostRequest[ModFile](endpoint, ms.client)
 }
