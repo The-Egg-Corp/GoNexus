@@ -1,3 +1,4 @@
+// TO RUN ALL TESTS: go test -timeout 30s github.com/the-egg-corp/gonexus/tests/v1 -v
 package v1
 
 import (
@@ -7,8 +8,6 @@ import (
 	"github.com/joho/godotenv"
 	v1 "github.com/the-egg-corp/gonexus/v1"
 )
-
-// go test -timeout 30s github.com/the-egg-corp/gonexus/tests/v1 -v
 
 var NexusClient, InitClientError = NewNexusClient()
 

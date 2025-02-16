@@ -34,8 +34,6 @@ func TestGetModChangelogs(t *testing.T) {
 	if changelogs == nil {
 		t.Fatalf("failed to get changelogs for mod: %d. response was nil but no error was provided", testModId)
 	}
-
-	//util.PrettyPrint(mod)
 }
 
 func TestGetModFiles(t *testing.T) {
@@ -47,8 +45,6 @@ func TestGetModFiles(t *testing.T) {
 	if files == nil {
 		t.Fatalf("failed to get files for mod: %d. response was nil but no error was provided", testModId)
 	}
-
-	//util.PrettyPrint(mod)
 }
 
 func TestGetModFile(t *testing.T) {
@@ -60,6 +56,4 @@ func TestGetModFile(t *testing.T) {
 	if file == nil {
 		t.Fatalf("failed to get file %d for mod: %d. response was nil but no error was provided", testModFileId, testModId)
 	}
-
-	//util.PrettyPrint(mod)
 }
