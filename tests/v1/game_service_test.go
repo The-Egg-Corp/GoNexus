@@ -35,3 +35,10 @@ func TestGetGame(t *testing.T) {
 
 	//util.PrettyPrint(game)
 }
+
+func TestGetGame_NonExistentGameShouldError(t *testing.T) {
+	_, err := GameService.GetGame("someBogusGame")
+	if err == nil {
+		t.Fatalf("bogus game did not error with 404 (Not Found)")
+	}
+}

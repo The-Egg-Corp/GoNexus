@@ -29,7 +29,6 @@ func TestNewNexusClient(t *testing.T) {
 	if NexusClient == nil {
 		if InitClientError != nil {
 			t.Fatalf("\nFailed to initialize the client.\n%s", InitClientError)
-			return
 		}
 
 		t.Fatal("\nFailed to initialize the client but no error was provided.")
