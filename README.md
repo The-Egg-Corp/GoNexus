@@ -4,7 +4,7 @@ Provides a convenient way to interface with the API to avoid sending HTTP reques
 
 > [!IMPORTANT]
 > Currently, this client is only intended to be used with a *personal* API key for testing and development purposes.\
-> If you have registered your app with NexusMods, it is advised **NOT** to use this client until Single Sign-On (SSO) is supported.
+> If you have registered your application with **NexusMods**, it is advised **NOT** to use this client until Single Sign-On (SSO) is supported.
 
 ## Install and Import
 ```console
