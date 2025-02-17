@@ -25,7 +25,7 @@ func fetchWithKey(url string, method ReqMethod, apiKey string) (res *resty.Respo
 	req := client.R()
 	req.SetHeader("apiKey", apiKey)
 
-	if method == "POST" {
+	if method == POST {
 		res, err = req.Post(url)
 	} else {
 		res, err = req.Get(url)
