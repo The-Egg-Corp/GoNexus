@@ -3,12 +3,12 @@ package v1
 import "fmt"
 
 type ModService struct {
-	client *Client
+	client *NexusClient
 }
 
-// Initializes a new [ModService] that is reponsible for handling mod-related requests like
+// Initializes a new [ModService] that is responsible for handling mod-related requests like
 // endorsing or abstaining, getting changelogs, getting files for specific mods etc.
-func NewModService(client *Client) *ModService {
+func NewModService(client *NexusClient) *ModService {
 	// TODO: Maybe accept game here instead of in each method? Assess if the coupling would be justified.
 	return &ModService{client: client}
 }

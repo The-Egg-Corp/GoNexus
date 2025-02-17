@@ -5,11 +5,11 @@ import (
 )
 
 type GameService struct {
-	client *Client
+	client *NexusClient
 }
 
 // Initializes a new [GameService] that is reponsible for handling game-related requests like getting all games or a specific game.
-func NewGameService(client *Client) *GameService {
+func NewGameService(client *NexusClient) *GameService {
 	return &GameService{client: client}
 }
 

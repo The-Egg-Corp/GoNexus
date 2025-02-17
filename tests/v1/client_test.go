@@ -11,7 +11,7 @@ import (
 
 var NexusClient, InitClientError = NewNexusClient()
 
-func NewNexusClient() (*v1.Client, error) {
+func NewNexusClient() (*v1.NexusClient, error) {
 	vars, err := godotenv.Read("../../.env")
 	if err != nil {
 		log.Fatalf("\nFailed to load required environment variables.\n%s", err)

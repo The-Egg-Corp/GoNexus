@@ -8,6 +8,6 @@ type ColourScheme struct {
 	DarkerColour    string `json:"darker_colour"`
 }
 
-func (c Client) GetColourSchemes() (*[]ColourScheme, error) {
+func (c NexusClient) GetColourSchemes() (*[]ColourScheme, error) {
 	return jsonGetRequest[[]ColourScheme]("v1/colourschemes", &c)
 }

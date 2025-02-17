@@ -35,16 +35,16 @@ func SendValidateUserRequest(key string) (*User, error) {
 }
 
 // Checks whether the api key of this client is valid.
-func (c Client) ValidateUser() (*User, error) {
+func (c NexusClient) ValidateUser() (*User, error) {
 	return SendValidateUserRequest(c.apiKey)
 }
 
 // Retrieves endorsements for current user (this client).
-func (c Client) GetEndorsements() (*[]Endorsement, error) {
+func (c NexusClient) GetEndorsements() (*[]Endorsement, error) {
 	return jsonGetRequest[[]Endorsement]("v1/user/endorsements", &c)
 }
 
 // Fetches all mods being tracked by the current user.
-func (c Client) GetTrackedMods() (*[]Mod, error) {
+func (c NexusClient) GetTrackedMods() (*[]Mod, error) {
 	return jsonGetRequest[[]Mod]("v1/user/tracked_mods", &c)
 }

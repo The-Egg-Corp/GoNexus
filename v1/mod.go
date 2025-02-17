@@ -50,25 +50,25 @@ type ModFile struct {
 	ChangelogHTML        string   `json:"changelog_html"`
 	ContentPreviewLink   string   `json:"content_preview_link"`
 	Description          string   `json:"description"`
-	Size                 uint64   `json:"size"` // Size is always same as size_kb I believe?
+	Size                 uint64   `json:"size"` // Size is always the same as SizeKB I believe?
 	SizeKB               uint64   `json:"size_kb"`
 	SizeBytes            uint64   `json:"size_bytes"`
 }
 
 type Mod struct {
 	Name                    string `json:"name"`
+	DomainName              string `json:"domain_name"`
+	Version                 string `json:"version"`
 	Summary                 string `json:"summary"`
 	Description             string `json:"description"`
 	PictureURL              string `json:"picture_url"`
-	ModDownloads            uint32 `json:"mod_downloads"`
-	ModUniqueDownloads      uint32 `json:"mod_unique_downloads"`
 	UID                     uint64 `json:"uid"`
 	ModID                   uint32 `json:"mod_id"`
 	GameID                  uint32 `json:"game_id"`
+	Downloads               uint32 `json:"mod_downloads"`
+	UniqueDownloads         uint32 `json:"mod_unique_downloads"`
 	AllowRating             bool   `json:"allow_rating"`
-	DomainName              string `json:"domain_name"`
 	CategoryID              uint16 `json:"category_id"`
-	Version                 string `json:"version"`
 	EndorsementCount        uint32 `json:"endorsement_count"`
 	CreatedTimestamp        uint32 `json:"created_timestamp"`
 	CreatedTime             string `json:"created_time"`
