@@ -34,27 +34,27 @@ func (ms *ModService) GetModFileByID(gameName string, modId uint32, fileId uint3
 }
 
 // Retrieves 10 trending mods for the given game.
-func (ms *ModService) Trending(gameName string) (*[]Mod, error) {
-	endpoint := fmt.Sprintf("v1/games/%s/trending", gameName)
+func (ms *ModService) GetTrending(gameName string) (*[]Mod, error) {
+	endpoint := fmt.Sprintf("v1/games/%s/mods/trending", gameName)
 	return jsonGetRequest[[]Mod](endpoint, ms.client)
 }
 
 // Retrieves the 10 latest added mods for the given game.
-func (ms *ModService) LatestAdded(gameName string) (*[]Mod, error) {
-	endpoint := fmt.Sprintf("v1/games/%s/latest_added", gameName)
+func (ms *ModService) GetLatestAdded(gameName string) (*[]Mod, error) {
+	endpoint := fmt.Sprintf("v1/games/%s/mods/latest_added", gameName)
 	return jsonGetRequest[[]Mod](endpoint, ms.client)
 }
 
 // Retrieves the 10 latest updated mods for the given game.
-func (ms *ModService) LatestUpdated(gameName string) (*[]Mod, error) {
-	endpoint := fmt.Sprintf("v1/games/%s/latest_updated", gameName)
+func (ms *ModService) GetLatestUpdated(gameName string) (*[]Mod, error) {
+	endpoint := fmt.Sprintf("v1/games/%s/mods/latest_updated", gameName)
 	return jsonGetRequest[[]Mod](endpoint, ms.client)
 }
 
 // Retrieves a list of mods that were updated in the given period, with timestamps of their last update.
 // This list is cached by NexusMods for 5 minutes.
-func (ms *ModService) UpdatedWithinPeriod(gameName string, period ModUpdatePeriod) (*[]ModUpdateInfo, error) {
-	endpoint := fmt.Sprintf("v1/games/%s/updated?period=%s", gameName, period)
+func (ms *ModService) GetUpdatedWithinPeriod(gameName string, period ModUpdatePeriod) (*[]ModUpdateInfo, error) {
+	endpoint := fmt.Sprintf("v1/games/%s/mods/updated?period=%s", gameName, period)
 	return jsonGetRequest[[]ModUpdateInfo](endpoint, ms.client)
 }
 
