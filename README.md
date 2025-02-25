@@ -3,8 +3,9 @@ Unofficial Golang client for [NexusMods](https://www.nexusmods.com).\
 Provides a convenient way to interface with the API to avoid sending HTTP requests manually.
 
 > [!IMPORTANT]
-> Currently, this client is only intended to be used with a *personal* API key for testing and development purposes.\
-> If you have registered your application with **NexusMods**, it is advised **NOT** to use this client until Single Sign-On (SSO) is supported.
+> This client was made with the intention to be used with a *personal* API key for testing and development purposes. However, it is possible that it also can be used in production, but extra caution should be taken as it has not been tested in any real application thus far. 
+> 
+> If you have registered your application with **NexusMods** and it has been publicly released, the [Single Sign-On (SSO)](https://github.com/Nexus-Mods/sso-integration-demo) system should be used to retrieve the user's key instead of using your own personal one.
 
 ## Install and Import
 ```console
@@ -19,8 +20,8 @@ import (
 
 ## Setup
 > [!NOTE]
-> A personal API key is required to return any data!\
-> You can get generate one in your [account settings](https://next.nexusmods.com/settings/api-keys). 
+> An API key is required to return any data!\
+> You can generate and use the one in your [account settings](https://next.nexusmods.com/settings/api-keys) if the [Acceptable Use Policy](https://help.nexusmods.com/article/114-api-acceptable-use-policy) allows you under your current circumstances.
 >
 > It is recommended to store your key safely using environment variables.
 
